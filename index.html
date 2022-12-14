@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DOM Traversing</title>
+
+    <style>
+        body {
+            margin: 0;
+        }
+
+        section {
+            padding: 3rem 2rem;
+        }
+
+        footer {
+            padding: 4rem;
+        }
+
+        .list-item {
+            padding: 0.5rem 0;
+            background-color: aqua;
+        }
+
+        .color-black {
+            background-color: black;
+            color: white;
+        }
+
+        /* section:first-of-type {
+            background-color: red;
+        } */
+
+        .text-color-red {
+            color: red;
+        }
+    </style>
+</head>
+
+<body>
+
+    <h1>Title of the <span>page</span></h1>
+    <button> Delete first section </button>
+
+    <h2>Second title</h2>
+
+    <section>
+        <h3>Sezione 1</h3>
+        <ul>
+            <li>elemento-1</li>
+            <li>elemento-2</li>
+            <li>elemento-3</li>
+            <li>elemento-4</li>
+        </ul>
+    </section>
+    <section id="secondSection">
+        <h3>Sezione 2</h3>
+        <ul>
+            <li class="list-item">elemento-1</li>
+            <li class="list-item">elemento-2</li>
+            <li class="list-item">elemento-3</li>
+            <li class="list-item">elemento-4</li>
+        </ul>
+    </section>
+    <section>
+        <h3>Sezione 3</h3>
+        <ul>
+            <li>elemento-1</li>
+            <li>elemento-2</li>
+            <li>elemento-3</li>
+            <li>elemento-4</li>
+        </ul>
+    </section>
+    <section>
+        <h3>Sezione 4</h3>
+        <ul>
+            <li>elemento-1</li>
+            <li>elemento-2</li>
+            <li>elemento-3</li>
+            <li>elemento-4</li>
+        </ul>
+    </section>
+    <section id="container">
+        <ul></ul>
+    </section>
+    <footer>
+        Epicode copyright
+
+    </footer>
+
+    <script>
+        const changeTitle = () => {
+            const h1 = document.querySelector("h1")
+            h1.style.fontSize = "64px"
+            h1.style.color = "red"
+
+            h1.innerText = "Nuovo Titolo!"
+        }
+
+        const removeClassFromSecondLis = () => {
+            const secondLis = document.querySelectorAll("#secondSection li")
+
+            // secondLis.forEach(li => li.className = "")
+
+            for (let i = 0; i < secondLis.length; i++) {
+                const li = secondLis[i];
+                li.className = ""
+            }
+        }
+
+        const addClassToFirstLis = () => {
+            const firstLis = document.querySelectorAll("section:first-of-type > ul > li")
+
+            firstLis.forEach(li => li.classList.add("list-item"))
+        }
+
+        const addColorToFirstLis = () => {
+            const firstLis = document.querySelectorAll("section:first-of-type > ul > li")
+
+            firstLis.forEach(li => li.classList.add("text-color-red"))
+        }
+
+
+        const addNewLi = (num) => {
+            const list = document.querySelector("section:nth-of-type(3) ul")
+
+            const newLi = document.createElement("li")
+            newLi.innerText = "elemento-" + num
+            newLi.style.color = "red"
+
+            list.appendChild(newLi)
+        }
+
+
+        const addNewLiBulk = (length) => {
+            for (let i = 5; i <= length; i++) {
+                addNewLi(i)
+            }
+        }
+
+
+        const addNewLiInSection = (content) => {
+            const sectionList = document.querySelector("#container ul")
+
+
+            sectionList.innerHTML += `<li> ${content} </li>`
+        }
+
+        const createSection = () => {
+            const newSection = document.createElement("section")
+            const nextSection = document.getElementById("secondSection")
+
+            const newImage = document.createElement("img")
+
+            newImage.src = "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5a/DOM-model.svg/1200px-DOM-model.svg.png"
+            newImage.alt = "Dom representation"
+            newImage.style.width = "400px"
+            newImage.onclick = () => alert("Hai cliccato l'immagine")
+
+            newSection.appendChild(newImage)
+            document.body.insertBefore(newSection, nextSection)
+
+
+            // document.body.innerHTML += `<section>
+            //         <h2> Nuova sezione </h2>
+            //              <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/5a/DOM-model.svg/1200px-DOM-model.svg.png" alt="Dom representation" style="width:400px" />
+            //     </section>`
+        }
+
+
+
+
+
+        const deleteFirstSection = () => {
+            const sectionToRemove = document.querySelector("section")
+
+            sectionToRemove.remove()
+        }
+
+        const button = document.querySelector("button")
+
+        button.onclick = deleteFirstSection
+    </script>
+</body>
+
+</html>
